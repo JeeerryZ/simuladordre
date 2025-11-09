@@ -16,6 +16,7 @@ import {
   Coins,
   CreditCard,
   Home,
+  House,
   Monitor,
   NotebookPen,
   PiggyBank,
@@ -45,6 +46,11 @@ const metricsMain = [
     label: "Faturas Processadas/Ano",
     icon: <TrendingUp className='w-5 h-5' />,
   },
+  {
+    key: "unidadesHabitacionais",
+    label: "Unidades Habitacionais",
+    icon: <House className='w-5 h-5' />,
+  },
 ];
 
 // Cards financeiros
@@ -57,24 +63,24 @@ const metricsFinance = [
   {
     key: "investimentoAquisicaoAreas",
     label: "Aquisição de Áreas",
-    icon: <Banknote className='w-6 h-6 text-teal-700' />,
+    icon: <Banknote className='w-6 h-6 text-green-700' />,
   },
   {
     key: "investimentoEstruturaCivil",
     label: "Estrutura Civil",
-    icon: <Coins className='w-6 h-6 text-green-700' />,
+    icon: <Coins className='w-6 h-6 text-green-600' />,
   },
   {
     key: "investimentoInicialDeImplantacao",
     label: "Implantação Inicial",
-    icon: <PiggyBank className='w-6 h-6 text-cyan-700' />,
+    icon: <PiggyBank className='w-6 h-6 text-green-500' />,
   },
 ];
 
 // Cards secundários
 const metricsSecondary = [
   { key: "areaTotalUnidadeAtendimento", label: "Área Total", unit: "m²" },
-  { key: "comercial", label: "Unidades Comerciais", unit: "Ativas" },
+  { key: "comercial", label: "Unidades Comerciais", unit: "Colaboradores" },
   {
     key: "segundasViasProjetadasNoAno",
     label: "2ª Via Anual",
@@ -84,31 +90,37 @@ const metricsSecondary = [
     key: "cobrancaENegociacao",
     label: "Cobrança & Negociação",
     icon: <CreditCard className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
   {
     key: "cadastroEContatos",
     label: "Cadastro & Contatos",
     icon: <NotebookPen className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
   {
     key: "controlesEIndicadores",
     label: "Controles & Indicadores",
     icon: <BarChart3 className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
   {
     key: "tecnologiaDaInformacao",
     label: "Tecnologia da Informação",
     icon: <Monitor className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
   {
     key: "complianceEAuditoriaInterna",
     label: "Compliance & Auditoria",
     icon: <ShieldCheck className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
   {
     key: "treinamentoEDesenvolvimento",
     label: "Treinamento & Desenvolvimento",
     icon: <UserCog className='w-5 h-5' />,
+    unit: "Colaboradores",
   },
 ];
 
