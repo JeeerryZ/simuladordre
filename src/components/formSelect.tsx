@@ -1,0 +1,47 @@
+import { FieldError } from "react-hook-form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+type FormSelectProps = {
+  value: string;
+  onChange: (value: string) => void;
+  options: readonly string[];
+  error?: FieldError;
+  placeholder?: string;
+};
+
+export function FormSelect({
+  value,
+  onChange,
+  options,
+  error,
+  placeholder,
+}: FormSelectProps) {
+  return (
+    <Select value={value} onValueChange={onChange} defaultValue=''>
+      <SelectTrigger
+        id='regiao'
+        className={`w-full text-black rounded-xl px-4 py-2 bg-white/30 border border-blue-300/40 text-base shadow-md focus:ring-2 focus:ring-blue-400 focus:border-blue-600 transition ${
+          error ? "border-red-400" : ""
+        }`}
+      >
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent className='rounded-xl bg-white/20 backdrop-blur-3xl border border-blue-200 p-2 shadow-xl'>
+        {options.map((opt) => (
+          <SelectItem
+            value={opt}
+            key={opt}
+            className='rounded-lg text-slate-800 select-none data-[state=checked]:font-medium hover:bg-blue-100 transition'
+          >
+            {opt}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
