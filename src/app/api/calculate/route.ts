@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     ["quantidadesDeFatura", "INPUTS GERAIS", "AU56"],
     ["faturasPorUnidadeAtendimento", "INPUTS GERAIS", "AU57"],
     ["rsuColetadoETratado", "CONFIGURAÇÃO_CONCESSÃO", "C18"],
-    ["unidadesHabitacionais", "CONFIGURAÇÃO_CONCESSÃO", "C24"],
+    ["unidadesHabitacionais", "CONFIGURAÇÃO_CONCESSÃO", "C37"],
     ["segundasViasProjetadasNoAno", "INPUTS GERAIS", "AU55"],
     ["unidadesDeAtendimento", "CONFIGURAÇÃO_PORTE", "D56"],
     ["areaPorUnidadeAtendimento", "CONFIGURAÇÃO_PORTE", "D46"],
