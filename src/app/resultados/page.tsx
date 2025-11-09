@@ -146,7 +146,7 @@ function formatValue(valor: any, isMoney = false, unit?: string) {
 
 export default function ResultadosPage() {
   const [excelOutput, setExcelOutput] = useState<ExcelOutput | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   function handleReset() {
@@ -276,7 +276,7 @@ export default function ResultadosPage() {
                       <div className='text-lg font-medium text-green-900 mb-1 text-center drop-shadow'>
                         {meta.label}
                       </div>
-                      <div className='text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'>
+                      <div className='lg:text-xl text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'>
                         {valorFormatado}
                       </div>
                     </div>
@@ -325,7 +325,7 @@ export default function ResultadosPage() {
       </div>
 
       {/* Gráficos */}
-      <section>
+      <section className='flex items-center justify-center flex-col gap-4'>
         <h1 className='text-xl font-bold mb-5 text-slate-700 drop-shadow-lg'>
           Gráfico de Custos
         </h1>
@@ -355,7 +355,7 @@ export default function ResultadosPage() {
             <Loader2 className='animate-spin' />
           ) : (
             <>
-              "Fazer outra simulação"
+              Fazer outra simulação
               <ArrowBigLeft />
             </>
           )}

@@ -53,7 +53,7 @@ export function CardGrafico({
       {title && (
         <div className='font-semibold text-slate-700 mb-3'>{title}</div>
       )}
-      <div className='w-full aspect-video min-h-[220px]'>
+      <div className='lg:w-3xl w-full aspect-video'>
         <Line
           data={{
             labels,
@@ -119,7 +119,7 @@ export function CardGraficoArea({
   return (
     <div className='rounded-2xl shadow-xl bg-white/60 dark:bg-slate-900/50 p-4 mb-8 overflow-hidden'>
       <div className='font-semibold text-slate-700 mb-3'>{title}</div>
-      <div className='w-full aspect-video'>
+      <div className='lg:w-3xl w-full aspect-video'>
         <Line
           data={{
             labels,
@@ -177,7 +177,7 @@ export function CardGraficoMinimal({
   return (
     <div className='rounded-xl shadow border border-slate-200/30 px-3 py-2 mb-3 bg-white/45 dark:bg-slate-900/40'>
       <div className='font-semibold text-slate-700 mb-3'>{title}</div>
-      <div className='w-full aspect-16/8 min-h-[120px]'>
+      <div className='lg:w-3xl w-full aspect-video'>
         <Line
           data={{
             labels,

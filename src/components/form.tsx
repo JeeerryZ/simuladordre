@@ -188,6 +188,7 @@ export default function Formulario() {
               <input
                 type='number'
                 inputMode='decimal'
+                step={0.001}
                 pattern='\d+(\.\d{0,3})?'
                 id='taxa-geracao-residuos'
                 value={field.value ?? ""}
