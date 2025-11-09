@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Verde principais para fundo e destaque */
+  --background: oklch(0.975 0.04 143); /* Verde super claro */
+  --foreground: oklch(0.25 0.02 135); /* Verde grafite */
+
+  --muted: oklch(0.93 0.09 135); /* Verde suave */
+  --muted-foreground: oklch(0.52 0.09 135); /* Verde médio */
+
+  --card: oklch(0.99 0.01 135); /* Branco levemente esverdeado */
+  --card-foreground: var(--foreground);
+
+  --primary: oklch(0.71 0.18 135); /* Verde principal */
+  --primary-foreground: oklch(0.99 0.03 135); /* Branco-verde para contraste */
+
+  --border: oklch(0.87 0.11 135); /* Verde bem claro */
+  --input: var(--border);
+  --ring: oklch(0.45 0.18 135); /* Verde saturado para focus */
+
+  --radius: 0.5rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+body {
+  background: linear-gradient(
+    135deg,
+    oklch(0.97 0.06 259) 0%,
+    oklch(0.99 0.01 260) 100%
+  );
+  color: var(--foreground);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--ring, #22c55e);
+  border-color: var(--ring, #22c55e);
+}
+
+input:focus,
+input:focus-visible,
+input:active {
+  outline: none !important;
+  box-shadow: 0 0 0 2px var(--ring, #22c55e);
+  border-color: var(--ring, #22c55e);
+}
+
+input,
+select,
+textarea {
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
