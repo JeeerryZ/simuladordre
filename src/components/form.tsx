@@ -3,10 +3,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { formSchema, FormValues } from "@/schemas/formSchema";
 import {
   ANOS_INICIO,
-  ANOS_PROJECAO,
+  ANOS_TRANSICAO_MODELO_COBRANCA,
   BASE_PREÇO_MEDIO,
   MODELO_COBRANCA_CONCESSAO,
-  MODELO_FINAL_COBRANCA,
   MODELO_INICIAL_COBRANCA,
   REGIOES,
   SETORES_EMPRESA,
@@ -32,8 +31,7 @@ const defaultValues: Partial<FormValues> = {
   crescimentoPopulacionalAnual: 3.0,
   habitantesPorResidencia: undefined,
   modeloInicialCobranca: undefined,
-  anosProjecao: undefined,
-  modeloFinalCobranca: undefined,
+  anosTransicaoModeloCobranca: undefined,
   receitaRepassada: 0.5,
   setores: [],
   tipologiaFaturamento: undefined,
@@ -124,6 +122,7 @@ export default function Formulario() {
             control={control}
             render={({ field }) => (
               <FormSelect
+                label='regiao'
                 value={field.value ?? ""}
                 onChange={field.onChange}
                 options={REGIOES}
@@ -193,8 +192,7 @@ export default function Formulario() {
                 id='taxa-geracao-residuos'
                 value={field.value ?? ""}
                 onChange={(e) => {
-                  const val = e.target.value.replace(",", ".");
-                  field.onChange(val);
+                  field.onChange(e.target.value);
                 }}
                 className={`w-full rounded-md border border-green-200 px-3 py-2 text-base bg-white focus:ring-green-400 focus:border-green-600 ${
                   errors.taxaGeracaoResiduos ? "border-red-400" : ""
@@ -262,6 +260,7 @@ export default function Formulario() {
             defaultValue={defaultValues.anoInicio}
             render={({ field }) => (
               <FormSelect
+                label='ano-inicio'
                 value={field.value ?? ""}
                 onChange={field.onChange}
                 options={ANOS_INICIO}
@@ -355,6 +354,7 @@ export default function Formulario() {
             defaultValue={defaultValues.modeloInicialCobranca}
             render={({ field }) => (
               <FormSelect
+                label='modelo-inicial-cobranca'
                 value={field.value ?? ""}
                 onChange={field.onChange}
                 options={MODELO_INICIAL_COBRANCA}
@@ -371,76 +371,46 @@ export default function Formulario() {
         </CardContent>
       </Card>
 
-      {/* Anos de Projeção */}
+      {/* Anos de Transição Modelo de Cobrança */}
       <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
         <CardContent className='p-0'>
           <label
-            htmlFor='anos-projecao'
+            htmlFor='anos-transicao-modelo-cobranca'
             className='font-semibold text-slate-800 block mb-1 text-[15px]'
           >
-            Ano de Projeção
+            Ano de transição entre modelos de cobrança
           </label>
           <Controller
-            name='anosProjecao'
+            name='anosTransicaoModeloCobranca'
             control={control}
-            defaultValue={defaultValues.anosProjecao}
+            defaultValue={defaultValues.anosTransicaoModeloCobranca}
             render={({ field }) => (
               <FormSelect
+                label='anos-transicao-modelo-cobranca'
                 value={field.value ?? ""}
                 onChange={field.onChange}
-                options={ANOS_PROJECAO}
-                error={errors.anosProjecao}
+                options={ANOS_TRANSICAO_MODELO_COBRANCA}
+                error={errors.anosTransicaoModeloCobranca}
                 placeholder={"Selecione um ano"}
               />
             )}
           />
-          {errors.anosProjecao && (
+          {errors.anosTransicaoModeloCobranca && (
             <p className='text-red-600 text-xs mt-1'>
-              {errors.anosProjecao.message}
+              {errors.anosTransicaoModeloCobranca.message}
             </p>
           )}
         </CardContent>
       </Card>
 
-      {/* Modelo Final de Cobrança */}
-      <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
-        <CardContent className='p-0'>
-          <label
-            htmlFor='modelo-final-cobranca'
-            className='font-semibold text-slate-800 block mb-1 text-[15px]'
-          >
-            Modelo Final de Cobrança
-          </label>
-          <Controller
-            name='modeloFinalCobranca'
-            control={control}
-            defaultValue={defaultValues.modeloFinalCobranca}
-            render={({ field }) => (
-              <FormSelect
-                value={field.value ?? ""}
-                onChange={field.onChange}
-                options={MODELO_FINAL_COBRANCA}
-                error={errors.modeloFinalCobranca}
-                placeholder={"Selecione um modelo"}
-              />
-            )}
-          />
-          {errors.modeloFinalCobranca && (
-            <p className='text-red-600 text-xs mt-1'>
-              {errors.modeloFinalCobranca.message}
-            </p>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Receita Repassada */}
+      {/* % de Repasse para a Agência Reguladora*/}
       <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
         <CardContent className='p-0'>
           <label
             htmlFor='receita-repassada'
             className='font-semibold text-slate-800 block mb-1 text-[15px]'
           >
-            Receita Repassada
+            % de Repasse para a Agência Reguladora
           </label>
           <Controller
             name='receitaRepassada'
@@ -525,6 +495,7 @@ export default function Formulario() {
             defaultValue={defaultValues.tipologiaFaturamento}
             render={({ field }) => (
               <FormSelect
+                label='tipologia-faturamento'
                 value={field.value ?? ""}
                 onChange={field.onChange}
                 options={TIPOLOGIA_FATURAMENTO}
@@ -556,6 +527,7 @@ export default function Formulario() {
             defaultValue={defaultValues.basePrecoMedio}
             render={({ field }) => (
               <FormSelect
+                label='base-preco-medio'
                 value={field.value ?? ""}
                 onChange={field.onChange}
                 options={BASE_PREÇO_MEDIO}

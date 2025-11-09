@@ -20,6 +20,7 @@ import {
   Loader2,
   Monitor,
   NotebookPen,
+  NotebookText,
   PiggyBank,
   ShieldCheck,
   TrendingUp,
@@ -73,55 +74,66 @@ const metricsFinance = [
   },
   {
     key: "investimentoInicialDeImplantacao",
-    label: "Implantação Inicial",
+    label: "Investimento Total Inicial",
     icon: <PiggyBank className='w-6 h-6 text-green-500' />,
   },
 ];
 
 // Cards secundários
 const metricsSecondary = [
-  { key: "areaTotalUnidadeAtendimento", label: "Área Total", unit: "m²" },
-  { key: "comercial", label: "Unidades Comerciais", unit: "Colaboradores" },
+  {
+    key: "areaTotalUnidadeAtendimento",
+    label: "Área Total",
+    icon: <Home className='w-5 h-5' />,
+    unit: "m²",
+  },
   {
     key: "segundasViasProjetadasNoAno",
     label: "2ª Via Anual",
+    icon: <NotebookText className='w-5 h-5' />,
     unit: "Projetadas",
+  },
+  {
+    key: "comercial",
+    label: "Unidades Comerciais",
+    icon: <Users className='w-5 h-5' />,
+    unit: "Colaborador(es)",
   },
   {
     key: "cobrancaENegociacao",
     label: "Cobrança & Negociação",
     icon: <CreditCard className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
   {
     key: "cadastroEContatos",
     label: "Cadastro & Contatos",
     icon: <NotebookPen className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
   {
     key: "controlesEIndicadores",
     label: "Controles & Indicadores",
     icon: <BarChart3 className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
   {
     key: "tecnologiaDaInformacao",
     label: "Tecnologia da Informação",
     icon: <Monitor className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
   {
     key: "complianceEAuditoriaInterna",
     label: "Compliance & Auditoria",
     icon: <ShieldCheck className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
   {
     key: "treinamentoEDesenvolvimento",
     label: "Treinamento & Desenvolvimento",
     icon: <UserCog className='w-5 h-5' />,
-    unit: "Colaboradores",
+    unit: "Colaborador(es)",
   },
 ];
 
@@ -245,10 +257,10 @@ export default function ResultadosPage() {
           </ScrollReveal>
         </section>
 
-        {/* Financeiro */}
+        {/* Investimentos/CAPEX */}
         <section className='mb-12'>
           <h1 className='text-xl font-semibold mb-5 text-green-800 drop-shadow-lg'>
-            Financeiro
+            Investimentos/CAPEX
           </h1>
           <ScrollReveal duration={0.7}>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7'>
@@ -312,11 +324,6 @@ export default function ResultadosPage() {
                   <p className='text-2xl font-medium text-slate-700 mb-1 drop-shadow'>
                     {valorFormatado}
                   </p>
-                  {meta.unit && (
-                    <p className='text-sm text-slate-400 dark:text-slate-500'>
-                      {meta.unit}
-                    </p>
-                  )}
                 </div>
               );
             })}
@@ -347,7 +354,7 @@ export default function ResultadosPage() {
 
       <div className='flex items-center justify-center'>
         <Button
-          className='mb-8 text-lg text-center mt-4 px-10 py-6 rounded-2xl bg-green-500 text-white font-semibold hover:bg-green-600 shadow-2xs transition'
+          className='mb-8 text-lg text-center mt-4 px-10 py-6 cursor-pointer rounded-2xl bg-green-800 text-white font-semibold hover:ring-green-700/50 hover:ring-1 hover:bg-green-700 shadow-2xl transition'
           variant={loading ? "ghost" : "default"}
           onClick={handleReset}
         >
@@ -355,8 +362,8 @@ export default function ResultadosPage() {
             <Loader2 className='animate-spin' />
           ) : (
             <>
+              <ArrowBigLeft className='mt-0.5 w-5 h-5' />
               Fazer outra simulação
-              <ArrowBigLeft />
             </>
           )}
         </Button>

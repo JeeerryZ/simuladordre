@@ -44,8 +44,8 @@ export async function POST(req: NextRequest) {
     crescimentoPopulacionalAnual: formInputs.crescimentoPopulacionalAnual / 100,
     habitantesPorResidencia: formInputs.habitantesPorResidencia,
     modeloInicialCobranca: formInputs.modeloInicialCobranca,
-    anosProjecao: formInputs.anosProjecao,
-    modeloFinalCobranca: formInputs.modeloFinalCobranca,
+    anosProjecao: formInputs.anosTransicaoModeloCobranca,
+    modeloFinalCobranca: "Tarifa",
     receitaRepassada: formInputs.receitaRepassada / 100,
     atendimentoComercial: verifySetor(
       formInputs.setores,
@@ -120,6 +120,7 @@ export async function POST(req: NextRequest) {
   ];
 
   const outputs: Partial<ExcelOutput> = {};
+
   for (const [key, sheetName, cellAddress] of outputRanges) {
     const rangeResponse = await axios.get(
       `https://graph.microsoft.com/v1.0/users/${user_id}/drive/root:/${path}:/workbook/worksheets('${sheetName}')/range(address='${cellAddress}')`,
