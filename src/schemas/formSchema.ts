@@ -1,9 +1,8 @@
 import {
   ANOS_INICIO,
-  ANOS_PROJECAO,
+  ANOS_TRANSICAO_MODELO_COBRANCA,
   BASE_PREÇO_MEDIO,
   MODELO_COBRANCA_CONCESSAO,
-  MODELO_FINAL_COBRANCA,
   MODELO_INICIAL_COBRANCA,
   REGIOES,
   SETORES_EMPRESA,
@@ -27,7 +26,7 @@ export const formSchema = z.object({
   taxaGeracaoResiduos: z.coerce
     .number("Informe a taxa de geração de resíduos")
     .min(0.1, "Taxa mínima é 0.1 kg/hab.dia")
-    .max(5, "Taxa máxima é 5 kg/hab.dia")
+    .max(1.5, "Taxa máxima é 1.5 kg/hab.dia")
     .positive("A taxa deve ser um número positivo"),
 
   taxaColetaResiduos: z.coerce
@@ -56,13 +55,11 @@ export const formSchema = z.object({
     message: "Selecione um modelo de cobrança",
   }),
 
-  anosProjecao: z.string().refine((data) => ANOS_PROJECAO.includes(data), {
-    message: "Selecione um ano de projeção válido",
-  }),
-
-  modeloFinalCobranca: z.enum(MODELO_FINAL_COBRANCA, {
-    message: "Selecione um modelo de cobrança",
-  }),
+  anosTransicaoModeloCobranca: z
+    .string()
+    .refine((data) => ANOS_TRANSICAO_MODELO_COBRANCA.includes(data), {
+      message: "Selecione um ano válido",
+    }),
 
   receitaRepassada: z.coerce
     .number("Informe a receita repassada")

@@ -23,12 +23,13 @@ export const MODELO_FINAL_COBRANCA = ["Taxa", "Tarifa"] as const;
 
 export type ModeloFinalCobranca = (typeof MODELO_FINAL_COBRANCA)[number];
 
-export const ANOS_PROJECAO = Array.from(
+export const ANOS_TRANSICAO_MODELO_COBRANCA = Array.from(
   { length: 20 },
   (_, i) => (i + 1).toString() + "º ano"
 );
 
-export type AnosProjecao = (typeof ANOS_PROJECAO)[number];
+export type AnosTransicaoModeloCobranca =
+  (typeof ANOS_TRANSICAO_MODELO_COBRANCA)[number];
 
 export const ANOS_INICIO = Array.from({ length: 20 }, (_, i) =>
   (2026 + i).toString()
