@@ -17,6 +17,7 @@ import {
   CreditCard,
   Home,
   House,
+  Loader2,
   Monitor,
   NotebookPen,
   PiggyBank,
@@ -149,6 +150,7 @@ export default function ResultadosPage() {
   const router = useRouter();
 
   function handleReset() {
+    setLoading(true);
     sessionStorage.removeItem("excelOutput");
     router.push("/simulador");
   }
@@ -160,10 +162,8 @@ export default function ResultadosPage() {
     } else {
       router.push("/");
     }
-    setLoading(false);
   }, []);
 
-  if (loading) return <div>Loading...</div>;
   if (!excelOutput) return null;
 
   return (
@@ -348,10 +348,17 @@ export default function ResultadosPage() {
       <div className='flex items-center justify-center'>
         <Button
           className='mb-8 text-lg text-center mt-4 px-10 py-6 rounded-2xl bg-green-500 text-white font-semibold hover:bg-green-600 shadow-2xs transition'
+          variant={loading ? "ghost" : "default"}
           onClick={handleReset}
         >
-          Fazer outra simulação
-          <ArrowBigLeft />
+          {loading ? (
+            <Loader2 className='animate-spin' />
+          ) : (
+            <>
+              "Fazer outra simulação"
+              <ArrowBigLeft />
+            </>
+          )}
         </Button>
       </div>
     </div>

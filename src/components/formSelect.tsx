@@ -25,7 +25,7 @@ export function FormSelect({
     <Select value={value} onValueChange={onChange} defaultValue=''>
       <SelectTrigger
         id='regiao'
-        className={`w-full text-black rounded-xl px-4 py-2 bg-white/30 border border-green-300/40 text-base shadow-md focus:ring-2 focus:ring-green-400 focus:border-green-600 transition ${
+        className={`w-full text-black rounded-xl px-4 py-2 bg-white/30 border border-green-300/40 text-base shadow-md focus:ring-2 focus:ring-green-400 focus:border-green-700 transition ${
           error ? "border-red-400" : ""
         }`}
       >
