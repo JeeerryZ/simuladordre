@@ -186,7 +186,7 @@ export default function Formulario() {
             defaultValue={defaultValues.taxaGeracaoResiduos}
             render={({ field }) => (
               <input
-                type='text'
+                type='number'
                 inputMode='decimal'
                 pattern='\d+(\.\d{0,3})?'
                 id='taxa-geracao-residuos'
