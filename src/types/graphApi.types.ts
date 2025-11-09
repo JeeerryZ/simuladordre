@@ -1,6 +1,6 @@
 import {
   AnosInicio,
-  AnosProjecao,
+  AnosTransicaoModeloCobranca,
   BasePrecoMedio,
   ModeloCobranca,
   ModeloFinalCobranca,
@@ -49,7 +49,7 @@ export type ExcelInput = {
   crescimentoPopulacionalAnual: number;
   habitantesPorResidencia: number;
   modeloInicialCobranca: ModeloInicialCobranca;
-  anosProjecao: AnosProjecao;
+  anosTransicaoModeloCobranca: AnosTransicaoModeloCobranca;
   modeloFinalCobranca: ModeloFinalCobranca;
   receitaRepassada: number;
   atendimentoComercial: string;
