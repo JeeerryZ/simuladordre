@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     crescimentoPopulacionalAnual: formInputs.crescimentoPopulacionalAnual / 100,
     habitantesPorResidencia: formInputs.habitantesPorResidencia,
     modeloInicialCobranca: formInputs.modeloInicialCobranca,
-    anosProjecao: formInputs.anosTransicaoModeloCobranca,
+    anosTransicaoModeloCobranca: formInputs.anosTransicaoModeloCobranca,
     modeloFinalCobranca: "Tarifa",
     receitaRepassada: formInputs.receitaRepassada / 100,
     atendimentoComercial: verifySetor(
