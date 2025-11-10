@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Formulário DRE",
+  title: "Simulador de Tarifa de Concessão",
   description:
-    "Uma aplicação para facilitar o preenchimento do formulário DRE.",
+    "Simule tarifas de concessão de serviços públicos com base em diversos parâmetros e obtenha resultados precisos.",
 };
 
 export default function RootLayout({

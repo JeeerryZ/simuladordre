@@ -7,14 +7,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { FormValues } from "@/schemas/formSchema";
 import { ExcelOutput } from "@/types/graphApi.types";
-import { ArrowLeft, BookText, CirclePlus, Loader2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BookText,
+  CirclePlus,
+  Loader2,
+  SaveIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 
 export default function ResumoPage() {
   const [excelOutput, setExcelOutput] = useState<ExcelOutput | null>(null);
   const [formData, setFormData] = useState<FormValues | null>(null);
   const [loading, setLoading] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   function handleReset() {
@@ -23,6 +31,11 @@ export default function ResumoPage() {
     sessionStorage.removeItem("formData");
     router.push("/simulador");
   }
+
+  const handlePrint = useReactToPrint({
+    contentRef: contentRef,
+    documentTitle: "relatorio-resultados.pdf",
+  });
 
   useEffect(() => {
     const excelOutput = sessionStorage.getItem("excelOutput");
@@ -67,6 +80,15 @@ export default function ResumoPage() {
             >
               <ArrowLeft className='w-4 h-4' />
               Voltar aos Resultados
+            </Button>
+            <Button
+              size={"lg"}
+              className='cursor-pointer'
+              variant={"outline"}
+              onClick={handlePrint}
+            >
+              <SaveIcon className='w-4 h-4' />
+              Salvar resultado em PDF
             </Button>
             <Button
               size={"lg"}
