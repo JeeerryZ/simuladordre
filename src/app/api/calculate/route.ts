@@ -38,13 +38,14 @@ export async function POST(req: NextRequest) {
     habitantes: formInputs.habitantes,
     regiao: formInputs.regiao,
     modeloCobrancaConcessao: formInputs.modeloCobrancaConcessao,
-    taxaGeracaoResiduos: formInputs.taxaGeracaoResiduos,
+    taxaGeracaoResiduos: 1.047, // valor fixo conforme especificação
     taxaColetaResiduos: formInputs.taxaColetaResiduos / 100,
     anoInicio: formInputs.anoInicio,
     crescimentoPopulacionalAnual: formInputs.crescimentoPopulacionalAnual / 100,
     habitantesPorResidencia: formInputs.habitantesPorResidencia,
     modeloInicialCobranca: formInputs.modeloInicialCobranca,
-    anosTransicaoModeloCobranca: formInputs.anosTransicaoModeloCobranca,
+    anosTransicaoModeloCobranca:
+      formInputs.anosTransicaoModeloCobranca || "1º ano",
     modeloFinalCobranca: "Tarifa",
     receitaRepassada: formInputs.receitaRepassada / 100,
     atendimentoComercial: verifySetor(
@@ -88,7 +89,7 @@ export async function POST(req: NextRequest) {
   const outputRanges: Array<[keyof ExcelOutput, string, string]> = [
     ["quantidadesDeFatura", "INPUTS GERAIS", "AU56"],
     ["faturasPorUnidadeAtendimento", "INPUTS GERAIS", "AU57"],
-    ["rsuColetadoETratado", "CONFIGURAÇÃO_CONCESSÃO", "C18"],
+    ["rsuColetadoETratadoPorMes", "CONFIGURAÇÃO_CONCESSÃO", "C33"],
     ["unidadesHabitacionais", "CONFIGURAÇÃO_CONCESSÃO", "C37"],
     ["segundasViasProjetadasNoAno", "INPUTS GERAIS", "AU55"],
     ["unidadesDeAtendimento", "CONFIGURAÇÃO_PORTE", "D56"],
@@ -109,6 +110,17 @@ export async function POST(req: NextRequest) {
     ["tecnologiaDaInformacao", "ORGANOGRAMA", "K75"],
     ["complianceEAuditoriaInterna", "ORGANOGRAMA", "K83"],
     ["treinamentoEDesenvolvimento", "ORGANOGRAMA", "K92"],
+    ["custoDepartamentoPorCustoGeral", "INPUTS GERAIS", "AT30"],
+    ["custoDepartamentoPorReceitaBruta", "INPUTS GERAIS", "AT31"],
+    ["precoMedioColetaResiduos", "CONFIGURAÇÃO_CONCESSÃO", "C30"],
+    [
+      "precoMedioTratamentoEDestinacaoResiduos",
+      "CONFIGURAÇÃO_CONCESSÃO",
+      "C31",
+    ],
+    ["custoColetaRSU", "CONFIGURAÇÃO_CONCESSÃO", "C35"],
+    ["custoTratamentoEDestinacaoRSU", "CONFIGURAÇÃO_CONCESSÃO", "C36"],
+    ["porteDaConcessao", "CONFIGURAÇÃO_CONCESSÃO", "C28"],
   ];
 
   const outputGraphRanges: Array<
@@ -119,13 +131,18 @@ export async function POST(req: NextRequest) {
     ["custoUnitarioGeralPorTonelada", "P6:AC6", "P27:AC27"],
   ];
 
-  const outputs: Partial<ExcelOutput> = {};
+  const outputs: Partial<Record<keyof ExcelOutput, any>> = {};
 
   for (const [key, sheetName, cellAddress] of outputRanges) {
     const rangeResponse = await axios.get(
       `https://graph.microsoft.com/v1.0/users/${user_id}/drive/root:/${path}:/workbook/worksheets('${sheetName}')/range(address='${cellAddress}')`,
       { headers: sessionHeaders }
     );
+
+    if (key === "porteDaConcessao") {
+      outputs[key] = rangeResponse.data.values[0][0];
+      continue;
+    }
 
     if (
       Array.isArray(rangeResponse.data.values) &&
@@ -134,11 +151,22 @@ export async function POST(req: NextRequest) {
       key !== "graficos"
     ) {
       if (typeof rangeResponse.data.values[0][0] === "number") {
-        outputs[key] =
+        if (
+          key === "inadimplenciaMedia" ||
+          key === "custoDepartamentoPorCustoGeral" ||
+          key === "custoDepartamentoPorReceitaBruta"
+        ) {
+          outputs[key] = Math.round(rangeResponse.data.values[0][0] * 100);
+        } else if (
           key === "investimentoInicialDeImplantacao" ||
-          key === "investimentoMedioAnual"
-            ? Math.round(rangeResponse.data.values[0][0] * 100) / 100
-            : Math.round(rangeResponse.data.values[0][0]);
+          key === "investimentoMedioAnual" ||
+          key === "rsuColetadoETratadoPorMes"
+        ) {
+          outputs[key] =
+            Math.round(rangeResponse.data.values[0][0] * 100) / 100;
+        } else {
+          outputs[key] = Math.round(rangeResponse.data.values[0][0]);
+        }
       }
     } else {
       outputs[key] = rangeResponse.data.values.flat();
@@ -170,5 +198,22 @@ export async function POST(req: NextRequest) {
 
     outputs.graficos![graphKey] = [labels, values];
   }
+
+  const colaboradoresKeys: Array<keyof ExcelOutput> = [
+    "comercial",
+    "faturamentoLeituraEMedicao",
+    "cobrancaENegociacao",
+    "cadastroEContatos",
+    "controlesEIndicadores",
+    "tecnologiaDaInformacao",
+    "complianceEAuditoriaInterna",
+    "treinamentoEDesenvolvimento",
+  ];
+
+  outputs["totalColaboradores"] = colaboradoresKeys.reduce((sum, key) => {
+    const value = outputs[key];
+    return sum + (typeof value === "number" ? value : 0);
+  }, 0);
+
   return NextResponse.json(outputs);
 }
