@@ -134,7 +134,7 @@ export default function Intro() {
                   animate={{ letterSpacing: "0em", opacity: 1 }}
                   transition={{ duration: 1, delay: 0.8 }}
                 >
-                  Solvi
+                  Solví
                 </motion.h1>
 
                 <motion.div
@@ -301,18 +301,18 @@ export default function Intro() {
                         <BarChart3 className='w-10 h-10 text-white' />
                       </div>
                       <h1 className='text-5xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight'>
-                        Simulador{" "}
+                        Simulador Setor Comercial{" "}
                         <span className='bg-linear-to-r from-green-600 to-green-700 bg-clip-text text-transparent'>
-                          DRE
+                          Concessão
                         </span>
                       </h1>
                       <p className='text-xl md:text-2xl text-slate-800 mb-3 font-light'>
                         Projeção e Resultados em Tempo Real
                       </p>
                       <p className='text-base text-slate-800 max-w-2xl mx-auto'>
-                        Preencha os parâmetros financeiros e visualize o impacto
-                        direto nos seus resultados com gráficos interativos e
-                        insights automáticos
+                        Preencha as premissas e visualize os recursos
+                        necessários para a implantação do setor comercial em
+                        concessões, e seus impactos.
                       </p>
                     </div>
                   </ScrollReveal>
@@ -337,13 +337,13 @@ export default function Intro() {
                       {
                         icon: <Calculator className='w-7 h-7 text-green-700' />,
                         title: "Cálculos Automáticos",
-                        desc: "Insira os parâmetros e obtenha instantaneamente lucro líquido, margens e indicadores financeiros calculados automaticamente",
+                        desc: "Insira os inputs e obtenha instantaneamente os recursos necessários para a implantação do setor comercial",
                         boxClass: "from-green-100 to-green-200",
                       },
                       {
                         icon: <TrendingUp className='w-7 h-7 text-green-700' />,
                         title: "Visualização Dinâmica",
-                        desc: "Gráficos interativos que mostram receitas, despesas e distribuição por centro de custo de forma clara e visual",
+                        desc: "Gráficos interativos que mostram os recursos, custos e impactos no negócio",
                         boxClass: "from-green-100 to-green-200",
                       },
                       {
@@ -351,7 +351,7 @@ export default function Intro() {
                           <FileSpreadsheet className='w-7 h-7 text-green-700' />
                         ),
                         title: "Insights Inteligentes",
-                        desc: "Análises automáticas que identificam oportunidades de melhoria e comparam seus resultados com metas estabelecidas",
+                        desc: "Análises automáticas que identificam oportunidades de melhoria e comparam seus resultados",
                         boxClass: "from-green-100 to-green-200",
                       },
                     ].map(({ icon, title, desc, boxClass }, idx) => (

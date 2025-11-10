@@ -14,6 +14,7 @@ import {
 } from "@/types/form.types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { AnimatePresence, motion } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,7 +26,6 @@ const defaultValues: Partial<FormValues> = {
   habitantes: undefined,
   regiao: undefined,
   modeloCobrancaConcessao: undefined,
-  taxaGeracaoResiduos: undefined,
   taxaColetaResiduos: 85,
   anoInicio: undefined,
   crescimentoPopulacionalAnual: 3.0,
@@ -51,16 +51,16 @@ export default function Formulario() {
 
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [modeloInicialCobranca, setModeloInicialCobranca] = useState<
+    string | undefined
+  >(defaultValues.modeloInicialCobranca);
 
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
-    try {
-      const response = await axios.post("/api/calculate", data);
-      sessionStorage.setItem("excelOutput", JSON.stringify(response.data));
-      router.push("/resultados");
-    } finally {
-      setIsSubmitting(false);
-    }
+    const response = await axios.post("/api/calculate", data);
+    sessionStorage.setItem("formData", JSON.stringify(data));
+    sessionStorage.setItem("excelOutput", JSON.stringify(response.data));
+    router.push("/resultados");
   };
 
   return (
@@ -165,45 +165,6 @@ export default function Formulario() {
           {errors.modeloCobrancaConcessao && (
             <p className='text-red-600 text-xs mt-1'>
               {errors.modeloCobrancaConcessao.message}
-            </p>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Taxa de Geração de Resíduos */}
-      <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
-        <CardContent className='p-0'>
-          <label
-            htmlFor='taxa-geracao-residuos'
-            className='font-semibold text-slate-800 block mb-1 text-[15px]'
-          >
-            Taxa de Geração de Resíduos
-          </label>
-          <Controller
-            name='taxaGeracaoResiduos'
-            control={control}
-            defaultValue={defaultValues.taxaGeracaoResiduos}
-            render={({ field }) => (
-              <input
-                type='number'
-                inputMode='decimal'
-                step={0.001}
-                pattern='\d+(\.\d{0,3})?'
-                id='taxa-geracao-residuos'
-                value={field.value ?? ""}
-                onChange={(e) => {
-                  field.onChange(e.target.value);
-                }}
-                className={`w-full rounded-md border border-green-200 px-3 py-2 text-base bg-white focus:ring-green-400 focus:border-green-600 ${
-                  errors.taxaGeracaoResiduos ? "border-red-400" : ""
-                }`}
-                placeholder='Ex: 1,020'
-              />
-            )}
-          />
-          {errors.taxaGeracaoResiduos && (
-            <p className='text-red-600 text-xs mt-1'>
-              {errors.taxaGeracaoResiduos.message}
             </p>
           )}
         </CardContent>
@@ -356,7 +317,10 @@ export default function Formulario() {
               <FormSelect
                 label='modelo-inicial-cobranca'
                 value={field.value ?? ""}
-                onChange={field.onChange}
+                onChange={(e) => {
+                  field.onChange(e);
+                  setModeloInicialCobranca(e);
+                }}
                 options={MODELO_INICIAL_COBRANCA}
                 error={errors.modeloInicialCobranca}
                 placeholder={"Selecione um modelo"}
@@ -372,36 +336,51 @@ export default function Formulario() {
       </Card>
 
       {/* Anos de Transição Modelo de Cobrança */}
-      <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
-        <CardContent className='p-0'>
-          <label
-            htmlFor='anos-transicao-modelo-cobranca'
-            className='font-semibold text-slate-800 block mb-1 text-[15px]'
+
+      <AnimatePresence>
+        {modeloInicialCobranca === "Taxa" && (
+          <motion.div
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className='bg-white rounded-xl shadow border border-green-100'
           >
-            Ano de transição entre modelos de cobrança
-          </label>
-          <Controller
-            name='anosTransicaoModeloCobranca'
-            control={control}
-            defaultValue={defaultValues.anosTransicaoModeloCobranca}
-            render={({ field }) => (
-              <FormSelect
-                label='anos-transicao-modelo-cobranca'
-                value={field.value ?? ""}
-                onChange={field.onChange}
-                options={ANOS_TRANSICAO_MODELO_COBRANCA}
-                error={errors.anosTransicaoModeloCobranca}
-                placeholder={"Selecione um ano"}
-              />
-            )}
-          />
-          {errors.anosTransicaoModeloCobranca && (
-            <p className='text-red-600 text-xs mt-1'>
-              {errors.anosTransicaoModeloCobranca.message}
-            </p>
-          )}
-        </CardContent>
-      </Card>
+            <Card
+              className={`bg-white rounded-xl py-3 px-3 shadow border border-green-100`}
+            >
+              <CardContent className='p-0'>
+                <label
+                  htmlFor='anos-transicao-modelo-cobranca'
+                  className='font-semibold text-slate-800 block mb-1 text-[15px]'
+                >
+                  Ano de transição entre modelos de cobrança
+                </label>
+                <Controller
+                  name='anosTransicaoModeloCobranca'
+                  control={control}
+                  defaultValue={defaultValues.anosTransicaoModeloCobranca}
+                  render={({ field }) => (
+                    <FormSelect
+                      label='anos-transicao-modelo-cobranca'
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      options={ANOS_TRANSICAO_MODELO_COBRANCA}
+                      error={errors.anosTransicaoModeloCobranca}
+                      placeholder={"Selecione um ano"}
+                    />
+                  )}
+                />
+                {errors.anosTransicaoModeloCobranca && (
+                  <p className='text-red-600 text-xs mt-1'>
+                    {errors.anosTransicaoModeloCobranca.message}
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* % de Repasse para a Agência Reguladora*/}
       <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>

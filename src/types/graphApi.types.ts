@@ -15,7 +15,7 @@ export interface ExcelOutput {
   investimentoMedioAnual: number;
   comercial: number;
   faturamentoLeituraEMedicao: number;
-  rsuColetadoETratado: number;
+  rsuColetadoETratadoPorMes: number;
   unidadesHabitacionais: number;
   segundasViasProjetadasNoAno: number;
   unidadesDeAtendimento: number;
@@ -32,6 +32,14 @@ export interface ExcelOutput {
   tecnologiaDaInformacao: number;
   complianceEAuditoriaInterna: number;
   treinamentoEDesenvolvimento: number;
+  totalColaboradores: number;
+  custoDepartamentoPorCustoGeral: number;
+  custoDepartamentoPorReceitaBruta: number;
+  precoMedioColetaResiduos: number;
+  precoMedioTratamentoEDestinacaoResiduos: number;
+  custoColetaRSU: number;
+  custoTratamentoEDestinacaoRSU: number;
+  porteDaConcessao: string;
   graficos: {
     custoUnitarioGeralAnualPorUH: number[][];
     custoUnitarioGeralAnualPorHabitante: number[][];
