@@ -55,7 +55,10 @@ export default function ResumoPage() {
 
   return (
     <PageTransition>
-      <section className='max-w-5xl mx-auto mt-10 px-3 animate-fade-in-slow'>
+      <section
+        ref={contentRef}
+        className='max-w-5xl mx-auto mt-10 px-3 animate-fade-in-slow'
+      >
         <Card className='bg-linear-to-tr from-emerald-50 via-green-100 to-white shadow-lg border-emerald-200 rounded-2xl p-2 md:p-12 backdrop-blur-xl'>
           <CardHeader>
             <span className='inline-flex mx-auto justify-center items-center gap-2 px-4 py-1 mb-4 rounded-full bg-linear-to-r from-green-200/70 via-emerald-100/70 to-white shadow text-green-700 backdrop-blur font-semibold text-xs'>
