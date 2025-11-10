@@ -215,5 +215,11 @@ export async function POST(req: NextRequest) {
     return sum + (typeof value === "number" ? value : 0);
   }, 0);
 
+  await axios.post(
+    `https://graph.microsoft.com/v1.0/users/${user_id}/drive/root:/${path}:/workbook/closeSession`,
+    {},
+    { headers: sessionHeaders }
+  );
+
   return NextResponse.json(outputs);
 }
