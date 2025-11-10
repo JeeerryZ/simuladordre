@@ -54,7 +54,13 @@ export default function ResumoPage() {
   if (!excelOutput || !formData) return null;
 
   return (
-    <PageTransition>
+    <PageTransition
+      motionProps={{
+        initial: { opacity: 0, x: 80 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.4 },
+      }}
+    >
       <section
         ref={contentRef}
         className='max-w-5xl mx-auto mt-10 px-3 animate-fade-in-slow'

@@ -232,7 +232,13 @@ export default function ResultadosPage() {
   if (!excelOutput) return null;
 
   return (
-    <PageTransition>
+    <PageTransition
+      motionProps={{
+        initial: { opacity: 0, x: -80 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.4 },
+      }}
+    >
       <div
         ref={contentRef}
         className='min-h-screen bg-linear-to-br from-green-50 via-green-100 to-green-50 dark:from-slate-950 dark:via-green-950 dark:to-slate-900 p-4 md:p-8'
