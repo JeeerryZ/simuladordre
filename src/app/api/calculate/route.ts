@@ -75,7 +75,10 @@ export async function POST(req: NextRequest) {
       "treinamento-desenvolvimento"
     ),
     tipologiaFaturamento: formInputs.tipologiaFaturamento,
-    basePrecoMedio: formInputs.basePrecoMedio,
+    basePrecoMedio:
+      formInputs.basePrecoMedio === "UVS São Carlos"
+        ? "UVS São Carlos"
+        : "ABLP (Valoriza Resíduos)",
   };
 
   axios.patch(

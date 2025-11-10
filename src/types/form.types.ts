@@ -70,7 +70,7 @@ export const SETORES_LABELS: Record<SetorEmpresa, string> = {
 
 export const BASE_PREÇO_MEDIO = [
   "ABLP (Valoriza Resíduos)",
-  "UVS São Carlos Ambiental",
+  "UVS São Carlos",
 ] as const;
 
 export type BasePrecoMedio = (typeof BASE_PREÇO_MEDIO)[number];
