@@ -3,7 +3,12 @@ import { FormValues } from "@/schemas/formSchema";
 import { SetorEmpresa } from "@/types/form.types";
 import { ExcelInput, ExcelOutput } from "@/types/graphApi.types";
 import axios from "axios";
-import { NextRequest, NextResponse } from "next/server";
+import { Queue } from "bullmq";
+import IORedis from "ioredis";
+
+const connection = new IORedis(process.env.REDIS_URL as string);
+
+export const excelQueue = new Queue("excel-edits", { connection });
 
 const verifySetor = (
   setores: FormValues["setores"],
@@ -12,10 +17,10 @@ const verifySetor = (
   return setores.includes(setor) ? "Sim" : "Não";
 };
 
-export async function POST(req: NextRequest) {
+export async function processExcelGraphSession(
+  formInputs: FormValues
+): Promise<Partial<ExcelOutput>> {
   const token = await getGraphToken();
-
-  const formInputs = (await req.json()) as FormValues;
 
   const user_id = process.env.AZURE_USER_ID;
 
@@ -26,7 +31,7 @@ export async function POST(req: NextRequest) {
 
   const sessionResponse = await axios.post(
     `https://graph.microsoft.com/v1.0/users/${user_id}/drive/root:/${path}:/workbook/createSession`,
-    { persistChanges: false },
+    { persistChanges: true },
     { headers: headers }
   );
 
@@ -224,5 +229,5 @@ export async function POST(req: NextRequest) {
     { headers: sessionHeaders }
   );
 
-  return NextResponse.json(outputs);
+  return outputs;
 }
