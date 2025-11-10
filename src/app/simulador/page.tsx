@@ -8,7 +8,13 @@ import Link from "next/link";
 
 export default function SimuladorPage() {
   return (
-    <PageTransition>
+    <PageTransition
+      motionProps={{
+        initial: { opacity: 0, x: 80 },
+        animate: { opacity: 1, x: 0 },
+        transition: { duration: 0.4 },
+      }}
+    >
       <div className='min-h-screen bg-linear-to-br from-slate-50 via-green-50 to-slate-50 relative overflow-hidden'>
         <div className='absolute inset-0 pointer-events-none z-0'>
           <ScrollReveal animation='scale' duration={0.7}>
@@ -25,14 +31,14 @@ export default function SimuladorPage() {
           <header className='text-center mb-5 w-full'>
             <ScrollReveal animation='fadeUp' duration={0.7}>
               <Link href={"/"}>
-                <div className='mt-4 flex items-center justify-center gap-3'>
+                <div className='mt-4 flex items-center justify-center gap-3 flex-wrap'>
                   <div className='inline-flex items-center justify-center p-3 bg-linear-to-br from-green-600 to-green-700 rounded-2xl shadow-2xl'>
-                    <BarChart3 className='w-7 h-7 text-white' />
+                    <BarChart3 className='w-6 h-6 lg:w-7 lg:h-7 text-white' />
                   </div>
                   <h1 className='text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 tracking-tight'>
-                    Simulador{" "}
+                    Simulador Setor Comercial{" "}
                     <span className='bg-linear-to-r from-green-600 to-green-700 bg-clip-text text-transparent'>
-                      DRE
+                      Concessão
                     </span>
                   </h1>
                   <Sparkles className='w-6 h-6 text-green-400 animate-bounce' />
@@ -41,7 +47,7 @@ export default function SimuladorPage() {
             </ScrollReveal>
             <p className='text-base sm:text-lg text-slate-800 mt-2'>
               Projeção e resultados em tempo real. Preencha os parâmetros para
-              simular!
+              simular.
             </p>
           </header>
           <section className='w-full max-w-md mx-auto sm:max-w-lg lg:max-w-xl mb-6'>

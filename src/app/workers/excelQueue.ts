@@ -31,7 +31,7 @@ export async function processExcelGraphSession(
 
   const sessionResponse = await axios.post(
     `https://graph.microsoft.com/v1.0/users/${user_id}/drive/root:/${path}:/workbook/createSession`,
-    { persistChanges: true },
+    { persistChanges: false },
     { headers: headers }
   );
 
