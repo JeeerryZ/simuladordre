@@ -15,7 +15,7 @@ export const formSchema = z
     habitantes: z.coerce
       .number("Informe o número de habitantes")
       .int("Informe um número inteiro")
-      .min(1, "Mínimo de 1 habitante necessário")
+      .min(500, "Mínimo de 500 habitantes necessário")
       .positive("O número deve ser positivo"),
 
     regiao: z.enum(REGIOES, { message: "Selecione uma região válida" }),
@@ -36,15 +36,15 @@ export const formSchema = z
         message: "Selecione um ano de início válido",
       }),
 
-    crescimentoPopulacionalAnual: z
-      .number("Informe o crescimento populacional anual")
-      .min(0, "Crescimento mínimo é 0%")
-      .max(5, "Crescimento máximo é 5%"),
-
     habitantesPorResidencia: z.coerce
       .number("Informe o número de habitantes por residência")
       .min(1, "Mínimo de 1 habitante por residência")
       .max(7, "Máximo de 7 habitantes por residência"),
+
+    crescimentoPopulacionalAnual: z
+      .number("Informe o crescimento populacional anual")
+      .min(0, "Crescimento mínimo é 0%")
+      .max(5, "Crescimento máximo é 5%"),
 
     modeloInicialCobranca: z.enum(MODELO_INICIAL_COBRANCA, {
       message: "Selecione um modelo de cobrança",
@@ -80,6 +80,16 @@ export const formSchema = z
     }),
   })
   .superRefine((data, ctx) => {
+    if (data.habitantesPorResidencia > data.habitantes) {
+      ctx.addIssue({
+        code: "too_big",
+        origin: "number",
+        maximum: data.habitantes,
+        path: ["habitantesPorResidencia"],
+        input: data.habitantesPorResidencia,
+        message: "Deve ser maior ou igual ao número de habitantes",
+      });
+    }
     if (data.modeloInicialCobranca === "Taxa") {
       if (
         !data.anosTransicaoModeloCobranca ||
