@@ -17,11 +17,11 @@ const setupCss = (color: string, regionIndex: number): string => {
 
 const parseRegion = (region: string): number | undefined => {
   const regions: { [key: string]: number } = {
-    sudeste: 4,
-    sul: 3,
-    norte: 2,
-    centro_oeste: 1,
-    nordeste: 0,
+    Sudeste: 4,
+    Sul: 3,
+    Norte: 2,
+    "Centro-Oeste": 1,
+    Nordeste: 0,
   };
   return regions[region];
 };

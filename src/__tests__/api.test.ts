@@ -31,6 +31,10 @@ function generateInputs() {
     incrementoReceita: parseFloat((Math.random() * 10).toFixed(2)),
     basePrecoMedio:
       Math.random() < 0.5 ? "UVS São Carlos" : "ABLP (Valoriza Resíduos)",
+    locacaoOuConstrucao:
+      Math.random() < 0.5
+        ? "Aquisição de área e construção (CAPEX)"
+        : "Locação de imóvel (OPEX)",
   };
 }
 

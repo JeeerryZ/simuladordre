@@ -4,7 +4,7 @@ import { ExcelOutput } from "@/types/graphApi.types";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
 import { Bot, MessageCircle, Send, Sparkles, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -27,6 +27,14 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [messages, loading]);
 
   async function handleSend(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -264,6 +272,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                   </div>
                 </motion.div>
               )}
+              <div ref={scrollRef} />
             </div>
           </AnimatePresence>
         </ScrollArea>

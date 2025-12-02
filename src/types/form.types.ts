@@ -74,3 +74,10 @@ export const BASE_PREÇO_MEDIO = [
 ] as const;
 
 export type BasePrecoMedio = (typeof BASE_PREÇO_MEDIO)[number];
+
+export const LOCACAO_OU_CONSTRUCAO = [
+  "Aquisição de área e construção (CAPEX)",
+  "Locação de imóvel (OPEX)",
+] as const;
+
+export type LocacaoOuConstrucao = (typeof LOCACAO_OU_CONSTRUCAO)[number];

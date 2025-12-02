@@ -2,6 +2,7 @@ import {
   ANOS_INICIO,
   ANOS_TRANSICAO_MODELO_COBRANCA,
   BASE_PREÇO_MEDIO,
+  LOCACAO_OU_CONSTRUCAO,
   MODELO_COBRANCA_CONCESSAO,
   MODELO_INICIAL_COBRANCA,
   REGIOES,
@@ -77,6 +78,10 @@ export const formSchema = z
 
     basePrecoMedio: z.enum(BASE_PREÇO_MEDIO, {
       message: "Selecione uma base de preço médio",
+    }),
+
+    locacaoOuConstrucao: z.enum(LOCACAO_OU_CONSTRUCAO, {
+      message: "Selecione uma opção de locação ou construção",
     }),
   })
   .superRefine((data, ctx) => {

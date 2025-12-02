@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   const sessionId = sessionResponse.data.id;
   const sessionHeaders = { ...headers, "workbook-session-id": sessionId };
 
-  const inputsRange = "C6:C27";
+  const inputsRange = "C6:C28";
   const valores: ExcelInput = {
     habitantes: formInputs.habitantes,
     regiao: formInputs.regiao,
@@ -79,6 +79,7 @@ export async function POST(req: NextRequest) {
       formInputs.basePrecoMedio === "UVS São Carlos"
         ? "UVS São Carlos"
         : "ABLP (Valoriza Resíduos)",
+    locacaoOuConstrucao: formInputs.locacaoOuConstrucao,
   };
 
   axios.patch(
@@ -92,8 +93,8 @@ export async function POST(req: NextRequest) {
   const outputRanges: Array<[keyof ExcelOutput, string, string]> = [
     ["quantidadesDeFatura", "INPUTS GERAIS", "AU56"],
     ["faturasPorUnidadeAtendimento", "INPUTS GERAIS", "AU57"],
-    ["rsuColetadoETratadoPorMes", "CONFIGURAÇÃO_CONCESSÃO", "C33"],
-    ["unidadesHabitacionais", "CONFIGURAÇÃO_CONCESSÃO", "C37"],
+    ["rsuColetadoETratadoPorMes", "CONFIGURAÇÃO_CONCESSÃO", "C34"],
+    ["unidadesHabitacionais", "CONFIGURAÇÃO_CONCESSÃO", "C38"],
     ["segundasViasProjetadasNoAno", "INPUTS GERAIS", "AU55"],
     ["unidadesDeAtendimento", "CONFIGURAÇÃO_PORTE", "D56"],
     ["areaPorUnidadeAtendimento", "CONFIGURAÇÃO_PORTE", "D46"],
@@ -104,7 +105,7 @@ export async function POST(req: NextRequest) {
     ["investimentoAquisicaoAreas", "CAPEX", "V34"],
     ["investimentoInicialDeImplantacao", "CAPEX", "V9"],
     ["investimentoMedioAnual", "CAPEX", "AZ9"],
-    ["inadimplenciaMedia", "CONFIGURAÇÃO_PORTE", "F13"],
+    ["inadimplenciaMedia", "CONFIGURAÇÃO_PORTE", "E13"],
     ["comercial", "ORGANOGRAMA", "K18"],
     ["faturamentoLeituraEMedicao", "ORGANOGRAMA", "K30"],
     ["cobrancaENegociacao", "ORGANOGRAMA", "K43"],
@@ -119,11 +120,11 @@ export async function POST(req: NextRequest) {
     [
       "precoMedioTratamentoEDestinacaoResiduos",
       "CONFIGURAÇÃO_CONCESSÃO",
-      "C31",
+      "C32",
     ],
-    ["custoColetaRSU", "CONFIGURAÇÃO_CONCESSÃO", "C35"],
-    ["custoTratamentoEDestinacaoRSU", "CONFIGURAÇÃO_CONCESSÃO", "C36"],
-    ["porteDaConcessao", "CONFIGURAÇÃO_CONCESSÃO", "C28"],
+    ["custoColetaRSU", "CONFIGURAÇÃO_CONCESSÃO", "C36"],
+    ["custoTratamentoEDestinacaoRSU", "CONFIGURAÇÃO_CONCESSÃO", "C37"],
+    ["porteDaConcessao", "CONFIGURAÇÃO_CONCESSÃO", "C29"],
   ];
 
   const outputGraphRanges: Array<

@@ -7,6 +7,7 @@ import {
   ANOS_INICIO,
   ANOS_TRANSICAO_MODELO_COBRANCA,
   BASE_PREÇO_MEDIO,
+  LOCACAO_OU_CONSTRUCAO,
   MODELO_COBRANCA_CONCESSAO,
   MODELO_INICIAL_COBRANCA,
   REGIOES,
@@ -39,6 +40,8 @@ const defaultValues: Partial<FormValues> = {
   receitaRepassada: 0.5,
   setores: [],
   tipologiaFaturamento: undefined,
+  basePrecoMedio: undefined,
+  locacaoOuConstrucao: undefined,
   incrementoReceita: 5.0,
 };
 
@@ -654,6 +657,38 @@ export default function Formulario() {
           </CardContent>
         </Card>
 
+        {/* Locação ou Construção */}
+        <Card className='bg-white rounded-xl py-3 px-3 shadow border border-green-100'>
+          <CardContent className='p-0'>
+            <label
+              htmlFor='locacao-ou-construcao'
+              className='font-semibold text-slate-800 block mb-1 text-[15px]'
+            >
+              Locação ou Construção
+            </label>
+            <Controller
+              name='locacaoOuConstrucao'
+              control={control}
+              defaultValue={defaultValues.locacaoOuConstrucao}
+              render={({ field }) => (
+                <FormSelect
+                  label='locacao-ou-construcao'
+                  value={field.value ?? ""}
+                  onChange={field.onChange}
+                  options={LOCACAO_OU_CONSTRUCAO}
+                  error={errors.locacaoOuConstrucao}
+                  placeholder={"Selecione uma opção"}
+                />
+              )}
+            />
+            {errors.locacaoOuConstrucao && (
+              <p className='text-red-600 text-xs mt-1'>
+                {errors.locacaoOuConstrucao.message}
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Botão Enviar */}
         <Button
           type='submit'
@@ -678,7 +713,7 @@ export default function Formulario() {
           </DialogTitle>
           <LoadingAnimation
             onComplete={() => setIsAnimationFinished(true)}
-            region='norte'
+            region={getValues("regiao")}
             habitantes={getValues("habitantes")}
           />
         </DialogContent>

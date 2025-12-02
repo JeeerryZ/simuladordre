@@ -2,6 +2,7 @@ import {
   AnosInicio,
   AnosTransicaoModeloCobranca,
   BasePrecoMedio,
+  LocacaoOuConstrucao,
   ModeloCobranca,
   ModeloFinalCobranca,
   ModeloInicialCobranca,
@@ -70,6 +71,7 @@ export type ExcelInput = {
   treinamentoDesenvolvimento: string;
   tipologiaFaturamento: string;
   basePrecoMedio: BasePrecoMedio;
+  locacaoOuConstrucao: LocacaoOuConstrucao;
 };
 
 export const ExcelOutputLabels = {
