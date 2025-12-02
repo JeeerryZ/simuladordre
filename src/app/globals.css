@@ -77,3 +77,21 @@ select,
 textarea {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
+
+@layer base {
+  button:not([disabled]),
+  [role="button"]:not([disabled]) {
+    cursor: pointer;
+  }
+}
+
+input[type="checkbox"] {
+  outline: none !important;
+}
+
+input[type="checkbox"]:focus,
+input[type="checkbox"]:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

@@ -1,6 +1,7 @@
 "use client";
 import PageTransition from "@/components/anim/PageTransition";
 import { ScrollReveal } from "@/components/anim/ScrollReveal";
+import FormAvatar from "@/components/avatar";
 import Formulario from "@/components/form";
 import { Card } from "@/components/ui/card";
 import { BarChart3, Sparkles } from "lucide-react";
@@ -74,6 +75,7 @@ export default function SimuladorPage() {
               </div>
             </ScrollReveal>
           </footer>
+          <FormAvatar />
         </div>
       </div>
     </PageTransition>

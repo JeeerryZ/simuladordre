@@ -1,3 +1,4 @@
+import { AvatarProvider } from "@/contexts/avatarContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -21,10 +22,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='pt-BR'>
-      <body className={`${inter.variable} antialiased`}>
-        {children}
-        <SpeedInsights />
-      </body>
+      <AvatarProvider>
+        <body className={`${inter.variable} antialiased`}>
+          {children}
+          <SpeedInsights />
+        </body>
+      </AvatarProvider>
     </html>
   );
 }

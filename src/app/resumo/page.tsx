@@ -1,6 +1,7 @@
 "use client";
 
 import PageTransition from "@/components/anim/PageTransition";
+import ChatAI from "@/components/chatAi";
 import Insights from "@/components/insights";
 import Resumo from "@/components/resumo";
 import { Button } from "@/components/ui/button";
@@ -79,6 +80,7 @@ export default function ResumoPage() {
             </p>
           </CardHeader>
           <Resumo formValue={formData} excelOutput={excelOutput} />
+          <ChatAI formData={formData} excelOutput={excelOutput} />
           <Insights excelOutput={excelOutput} />
           <div className='flex lg:flex-row flex-col items-center justify-center gap-5 mt-4 mb-10'>
             <Button

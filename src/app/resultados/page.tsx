@@ -2,12 +2,16 @@
 
 import PageTransition from "@/components/anim/PageTransition";
 import { ScrollReveal } from "@/components/anim/ScrollReveal";
+import { AnimatedNumber } from "@/components/animatedNumbers";
+import FormAvatar from "@/components/avatar";
 import {
   CardGrafico,
   CardGraficoArea,
   CardGraficoMinimal,
 } from "@/components/cardGraphic";
 import { Button } from "@/components/ui/button";
+import useAvatar from "@/hooks/useAvatar";
+import { useSectionTips } from "@/hooks/useSectionTips";
 import { ExcelOutput } from "@/types/graphApi.types";
 import clsx from "clsx";
 import {
@@ -41,141 +45,172 @@ import { useReactToPrint } from "react-to-print";
 // Cards principais (operacional)
 const metricsMain = [
   {
-    key: "clientesPorUnidadeAtendimento",
+    key: "clientesPorUnidadeAtendimento" as const,
     label: "Clientes/Unidade",
     icon: <Users className='w-5 h-5' />,
   },
   {
-    key: "unidadesDeAtendimento",
+    key: "unidadesDeAtendimento" as const,
     label: "Unidades de Atendimento",
     icon: <Home className='w-5 h-5' />,
   },
   {
-    key: "quantidadesDeFatura",
+    key: "quantidadesDeFatura" as const,
     label: "Faturas Processadas/Ano",
     icon: <TrendingUp className='w-5 h-5' />,
   },
 
   {
-    key: "segundasViasProjetadasNoAno",
+    key: "segundasViasProjetadasNoAno" as const,
     label: "2ª Via Anual",
     icon: <NotebookText className='w-5 h-5' />,
     unit: "Projetadas",
   },
-];
+] satisfies Array<{
+  key: keyof ExcelOutput;
+  label: string;
+  icon: React.ReactNode;
+  unit?: string;
+  decimals?: number;
+}>;
 
 // Cards financeiros
 const metricsFinance = [
   {
-    key: "investimentoMedioAnual",
+    key: "investimentoMedioAnual" as const,
     label: "Investimento Médio Anual",
     icon: <Wallet className='w-6 h-6 text-green-600' />,
   },
   {
-    key: "investimentoAquisicaoAreas",
+    key: "investimentoAquisicaoAreas" as const,
     label: "Aquisição de Áreas",
     icon: <Banknote className='w-6 h-6 text-green-700' />,
   },
   {
-    key: "investimentoEstruturaCivil",
+    key: "investimentoEstruturaCivil" as const,
     label: "Estrutura Civil",
     icon: <Coins className='w-6 h-6 text-green-600' />,
   },
   {
-    key: "investimentoInicialDeImplantacao",
+    key: "investimentoInicialDeImplantacao" as const,
     label: "Investimento Total Inicial",
     icon: <PiggyBank className='w-6 h-6 text-green-500' />,
   },
-];
+] satisfies Array<{
+  key: keyof ExcelOutput;
+  label: string;
+  icon: React.ReactNode;
+  unit?: string;
+  decimals?: number;
+}>;
 
 // Cards secundários
 const metricsSecondary = [
   {
-    key: "comercial",
+    key: "comercial" as const,
     label: "Unidades Comerciais",
     icon: <Users className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "cobrancaENegociacao",
+    key: "cobrancaENegociacao" as const,
     label: "Cobrança & Negociação",
     icon: <CreditCard className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "cadastroEContatos",
+    key: "cadastroEContatos" as const,
     label: "Cadastro & Contatos",
     icon: <NotebookPen className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "controlesEIndicadores",
+    key: "controlesEIndicadores" as const,
     label: "Controles & Indicadores",
     icon: <BarChart3 className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "tecnologiaDaInformacao",
+    key: "tecnologiaDaInformacao" as const,
     label: "Tecnologia da Informação",
     icon: <Monitor className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "complianceEAuditoriaInterna",
+    key: "complianceEAuditoriaInterna" as const,
     label: "Compliance & Auditoria",
     icon: <ShieldCheck className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
   {
-    key: "treinamentoEDesenvolvimento",
+    key: "treinamentoEDesenvolvimento" as const,
     label: "Treinamento & Desenvolvimento",
     icon: <UserCog className='w-5 h-5' />,
     unit: "Colaborador(es)",
   },
-];
+] satisfies Array<{
+  key: keyof ExcelOutput;
+  label: string;
+  icon: React.ReactNode;
+  unit?: string;
+  decimals?: number;
+}>;
 
 // Cards infraestrutura
 const metricsInfraestructure = [
   {
-    key: "unidadesHabitacionais",
+    key: "unidadesHabitacionais" as const,
     label: "Unidades Habitacionais",
     icon: <House className='w-5 h-5' />,
   },
   {
-    key: "areaTotalUnidadeAtendimento",
+    key: "areaTotalUnidadeAtendimento" as const,
     label: "Área Total",
     icon: <Scan className='w-5 h-5' />,
     unit: "m²",
   },
   {
-    key: "porteDaConcessao",
+    key: "porteDaConcessao" as const,
     label: "Porte da Concessão",
     icon: <BadgePercent className='w-5 h-5' />,
   },
-];
+] satisfies Array<{
+  key: keyof ExcelOutput;
+  label: string;
+  icon: React.ReactNode;
+  unit?: string;
+  decimals?: number;
+}>;
 
 // Cards impacto dos custos do departamento
 const metricsImpactoCustosDepartamento = [
   {
-    key: "custoDepartamentoPorCustoGeral",
+    key: "custoDepartamentoPorCustoGeral" as const,
     label: "Custo Departamento por Custo Geral",
     unit: "%",
     decimals: 2,
     icon: <CreditCard className='w-6 h-6 text-green-600' />,
   },
   {
-    key: "custoDepartamentoPorReceitaBruta",
+    key: "custoDepartamentoPorReceitaBruta" as const,
     label: "Custo Departamento por Receita Bruta",
     unit: "%",
     decimals: 2,
     icon: <Receipt className='w-6 h-6 text-green-700' />,
   },
-];
+] satisfies Array<{
+  key: keyof ExcelOutput;
+  label: string;
+  icon: React.ReactNode;
+  unit?: string;
+  decimals?: number;
+}>;
 
 // Helpers
 function getValue<T extends object>(obj: T, key: keyof T) {
   return obj[key];
 }
+
 function formatBRL(valor: number) {
   return valor.toLocaleString("pt-BR", {
     style: "currency",
@@ -207,6 +242,69 @@ export default function ResultadosPage() {
   const [loading, setLoading] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const { createSectionRef } = useSectionTips();
+  const { showTip } = useAvatar();
+
+  // Seções com dicas
+  {
+    const operacionalRef = createSectionRef({
+      id: "secao-operacional",
+      message:
+        "Esta seção mostra os principais indicadores operacionais da sua concessão, como faturas processadas e unidades de atendimento.",
+      duration: 7000,
+    });
+
+    const infraestruturaRef = createSectionRef({
+      id: "secao-infraestrutura",
+      message:
+        "A infraestrutura necessária foi calculada com base no número de habitantes e área estimada de cobertura.",
+      duration: 7000,
+    });
+
+    const investimentosRef = createSectionRef({
+      id: "secao-investimentos",
+      message:
+        "Os investimentos iniciais (CAPEX) incluem aquisição de áreas, estrutura civil e equipamentos. Revise com atenção!",
+      duration: 8000,
+    });
+
+    const dimensionamentoRef = createSectionRef({
+      id: "secao-dimensionamento",
+      message:
+        "O dimensionamento de pessoas considera as áreas selecionadas no formulário. Cada setor tem sua própria projeção de colaboradores.",
+      duration: 7000,
+    });
+
+    const impactoRef = createSectionRef({
+      id: "secao-impacto",
+      message:
+        "O impacto dos custos mostra quanto o departamento comercial representa em relação aos custos gerais e receita bruta.",
+      duration: 7000,
+    });
+
+    const graficosRef = createSectionRef({
+      id: "secao-graficos",
+      message:
+        "Os gráficos ajudam a visualizar a evolução dos custos e receitas ao longo do tempo. Você pode exportar esses dados!",
+      duration: 7000,
+    });
+  }
+
+  useEffect(() => {
+    if (excelOutput) {
+      const timeout = setTimeout(() => {
+        showTip({
+          id: "welcome-resultados",
+          message:
+            "Seus resultados estão prontos! Role a página para ver todos os detalhes calculados.",
+          duration: 6000,
+        });
+      }, 1500);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [excelOutput, showTip]);
 
   function handleReset() {
     setLoading(true);
@@ -248,11 +346,11 @@ export default function ResultadosPage() {
           <div className='absolute inset-0 pointer-events-none flex justify-center items-center select-none'>
             <div
               className='w-40 h-40 bg-green-400/30 rounded-full blur-[68px] animate-pulse
-        absolute left-0 top-0 -z-10'
+          absolute left-0 top-0 -z-10'
             />
             <div
               className='w-56 h-48 bg-emerald-400/25 rounded-full blur-[80px]
-        absolute right-0 top-8 -z-10'
+          absolute right-0 top-8 -z-10'
             />
             <div className='w-24 h-24 bg-green-400/30 rounded-full blur-3xl absolute right-28 top-10 -z-10' />
             <div className='w-44 h-32 bg-purple-400/20 rounded-full blur-2xl absolute left-7 bottom-0 -z-10' />
@@ -283,10 +381,8 @@ export default function ResultadosPage() {
             <ScrollReveal duration={0.7}>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 {metricsMain.map((meta, idx) => {
-                  const valorFormatado = formatValue(
-                    getValue(excelOutput, meta.key as keyof ExcelOutput)
-                  );
-                  if (!valorFormatado) return null;
+                  const value = getValue(excelOutput, meta.key);
+                  if (!value) return null;
                   return (
                     <ScrollReveal
                       key={meta.key}
@@ -307,9 +403,11 @@ export default function ResultadosPage() {
                         <p className='text-slate-500 text-sm mb-1'>
                           {meta.label}
                         </p>
-                        <p className='text-[1.85rem] font-semibold text-slate-800 drop-shadow'>
-                          {valorFormatado}
-                        </p>
+                        <AnimatedNumber
+                          className='text-[1.85rem] font-semibold text-slate-800 drop-shadow'
+                          value={typeof value === "object" ? "" : value}
+                          suffix={meta.unit ? ` ${meta.unit}` : ""}
+                        />
                       </div>
                     </ScrollReveal>
                   );
@@ -325,12 +423,8 @@ export default function ResultadosPage() {
             <ScrollReveal duration={0.7}>
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 {metricsInfraestructure.map((meta, idx) => {
-                  const valorFormatado = formatValue(
-                    getValue(excelOutput, meta.key as keyof ExcelOutput),
-                    false,
-                    meta.unit
-                  );
-                  if (!valorFormatado) return null;
+                  const value = getValue(excelOutput, meta.key);
+                  if (!value) return null;
                   return (
                     <ScrollReveal
                       key={meta.key}
@@ -351,9 +445,15 @@ export default function ResultadosPage() {
                         <p className='text-slate-500 text-sm mb-1'>
                           {meta.label}
                         </p>
-                        <p className='text-[1.85rem] font-semibold text-slate-800 drop-shadow'>
-                          {valorFormatado}
-                        </p>
+                        <AnimatedNumber
+                          className='text-[1.85rem] font-semibold text-slate-800 drop-shadow'
+                          value={
+                            Number.isInteger(value)
+                              ? Number(value)
+                              : String(value)
+                          }
+                          suffix={meta.unit ? ` ${meta.unit}` : ""}
+                        />
                       </div>
                     </ScrollReveal>
                   );
@@ -369,11 +469,8 @@ export default function ResultadosPage() {
             <ScrollReveal duration={0.7}>
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7'>
                 {metricsFinance.map((meta, idx) => {
-                  const valorFormatado = formatValue(
-                    getValue(excelOutput, meta.key as keyof ExcelOutput),
-                    true
-                  );
-                  if (!valorFormatado) return null;
+                  const value = getValue(excelOutput, meta.key);
+                  if (!value) return null;
                   return (
                     <ScrollReveal
                       key={meta.key}
@@ -392,9 +489,12 @@ export default function ResultadosPage() {
                         <div className='text-lg font-medium text-green-900 mb-1 text-center drop-shadow'>
                           {meta.label}
                         </div>
-                        <div className='lg:text-xl text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'>
-                          {valorFormatado}
-                        </div>
+                        <AnimatedNumber
+                          className='lg:text-xl text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'
+                          value={Number(value)}
+                          prefix='R$ '
+                          suffix=',00'
+                        />
                       </div>
                     </ScrollReveal>
                   );
@@ -410,7 +510,7 @@ export default function ResultadosPage() {
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
               {metricsSecondary.map((meta, idx) => {
                 const valorFormatado = formatValue(
-                  getValue(excelOutput, meta.key as keyof ExcelOutput),
+                  getValue(excelOutput, meta.key),
                   false,
                   meta.unit
                 );
@@ -424,9 +524,10 @@ export default function ResultadosPage() {
                     <p className='text-slate-500 text-center text-md mb-2'>
                       {meta.label}
                     </p>
-                    <p className='text-2xl font-medium text-slate-700 mb-1 drop-shadow'>
-                      {valorFormatado}
-                    </p>
+                    <AnimatedNumber
+                      className='text-2xl font-medium text-slate-700 mb-1 drop-shadow'
+                      value={valorFormatado}
+                    />
                   </div>
                 );
               })}
@@ -440,13 +541,8 @@ export default function ResultadosPage() {
             <ScrollReveal duration={0.7}>
               <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7'>
                 {metricsImpactoCustosDepartamento.map((meta, idx) => {
-                  const valorFormatado = formatValue(
-                    getValue(excelOutput, meta.key as keyof ExcelOutput),
-                    false,
-                    meta.unit,
-                    meta.decimals
-                  );
-                  if (!valorFormatado) return null;
+                  const value = getValue(excelOutput, meta.key);
+                  if (!value) return null;
                   return (
                     <ScrollReveal
                       key={meta.key}
@@ -465,9 +561,11 @@ export default function ResultadosPage() {
                         <div className='text-lg font-medium text-green-900 mb-1 text-center drop-shadow'>
                           {meta.label}
                         </div>
-                        <div className='lg:text-xl text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'>
-                          {valorFormatado}
-                        </div>
+                        <AnimatedNumber
+                          className='lg:text-xl text-[2.1rem] font-semibold text-slate-800 drop-shadow-xl'
+                          value={Number(value)}
+                          suffix={meta.unit ? `${meta.unit}` : ""}
+                        />
                       </div>
                     </ScrollReveal>
                   );
@@ -532,6 +630,7 @@ export default function ResultadosPage() {
           </Button>
         </div>
       </div>
+      <FormAvatar />
     </PageTransition>
   );
 }
