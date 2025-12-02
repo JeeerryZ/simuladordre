@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+**/teste
 
 # next.js
 /.next/
