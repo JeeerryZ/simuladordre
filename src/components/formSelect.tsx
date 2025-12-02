@@ -9,6 +9,7 @@ import {
 type FormSelectProps = {
   value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   options: readonly string[];
   error?: FieldError;
   placeholder?: string;
@@ -22,11 +23,13 @@ export function FormSelect({
   error,
   placeholder,
   label,
+  onBlur,
 }: FormSelectProps) {
   return (
     <Select value={value} onValueChange={onChange} defaultValue=''>
       <SelectTrigger
         id={label}
+        onBlur={onBlur}
         className={`w-full text-black rounded-xl px-4 py-2 bg-white/30 border border-green-300/40 text-base shadow-md focus:ring-2 focus:ring-green-400 focus:border-green-700 transition ${
           error ? "border-red-400" : ""
         }`}

@@ -28,11 +28,11 @@ type RegionOffset = {
 
 const getRegionCenterOffset = (region: string): RegionOffset => {
   const offsets: { [key: string]: RegionOffset } = {
-    sudeste: { x: "-30%", y: "-30%" },
-    sul: { x: "-15%", y: "-40%" },
-    norte: { x: "20%", y: "20%" },
-    centro_oeste: { x: "-4%", y: "-5%" },
-    nordeste: { x: "-50%", y: "20%" },
+    Sudeste: { x: "-30%", y: "-30%" },
+    Sul: { x: "-15%", y: "-40%" },
+    Norte: { x: "20%", y: "20%" },
+    Centro_Oeste: { x: "-4%", y: "-5%" },
+    Nordeste: { x: "-50%", y: "20%" },
   };
   return offsets[region] || { x: "0%", y: "0%" };
 };

@@ -59,7 +59,6 @@ export default function Formulario() {
 
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmittingTest, setIsSubmittingTest] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isAnimationFinished, setIsAnimationFinished] = useState(false);
 
@@ -217,8 +216,8 @@ export default function Formulario() {
               render={({ field }) => (
                 <FormSelect
                   value={field.value ?? ""}
-                  onChange={(value) => {
-                    field.onChange(value);
+                  onChange={field.onChange}
+                  onBlur={() => {
                     showTip({
                       id: "modelo-cobranca",
                       message:
@@ -303,8 +302,8 @@ export default function Formulario() {
                 <FormSelect
                   label='ano-inicio'
                   value={field.value ?? ""}
-                  onChange={(value) => {
-                    field.onChange(value);
+                  onChange={field.onChange}
+                  onBlur={() => {
                     showTip({
                       id: "ano-inicio",
                       message:
@@ -418,6 +417,8 @@ export default function Formulario() {
                   onChange={(e) => {
                     field.onChange(e);
                     setModeloInicialCobranca(e);
+                  }}
+                  onBlur={() => {
                     showTip({
                       id: "modelo-inicial",
                       message:
@@ -467,8 +468,8 @@ export default function Formulario() {
                       <FormSelect
                         label='anos-transicao-modelo-cobranca'
                         value={field.value ?? ""}
-                        onChange={(e) => {
-                          field.onChange(e);
+                        onChange={field.onChange}
+                        onBlur={() => {
                           showTip({
                             id: "anos-transicao",
                             message:
@@ -602,8 +603,8 @@ export default function Formulario() {
                 <FormSelect
                   label='tipologia-faturamento'
                   value={field.value ?? ""}
-                  onChange={(value) => {
-                    field.onChange(value);
+                  onChange={field.onChange}
+                  onBlur={() => {
                     showTip({
                       id: "tipologia-faturamento",
                       message:
@@ -702,7 +703,7 @@ export default function Formulario() {
       </form>
 
       {/* Dialog de Envio de Dados de Teste */}
-      <Dialog open={isSubmitting || isSubmittingTest}>
+      <Dialog open={isSubmitting}>
         <DialogOverlay className='bg-black/40 backdrop-blur-md' />
         <DialogContent
           className='transition-all duration-300 p-3 w-auto max-w-[600px] overflow-hidden rounded-3xl shadow-2xl bg-linear-to-br from-green-900/80 via-emerald-800/85 to-teal-900/80 backdrop-blur-xl border-2 border-emerald-400/30'
