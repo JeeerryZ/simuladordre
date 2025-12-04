@@ -122,7 +122,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
         </div>
 
         <CardTitle className='text-2xl font-bold text-slate-700 tracking-tight'>
-          Chat IA – Concessões & Tarifas
+          Agente IA - Concessões & Tarifas
         </CardTitle>
 
         <CardDescription className='text-slate-600 text-sm leading-relaxed'>

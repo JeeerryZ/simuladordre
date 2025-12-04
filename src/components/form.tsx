@@ -77,6 +77,14 @@ export default function Formulario() {
   };
 
   useEffect(() => {
+    if (isSubmitted) {
+      setTimeout(() => {
+        setIsAnimationFinished(true);
+      }, 2000);
+    }
+  }, [isSubmitted]);
+
+  useEffect(() => {
     if (isSubmitted && isAnimationFinished) {
       router.push("/resultados");
     }
@@ -702,7 +710,7 @@ export default function Formulario() {
         </Button>
       </form>
 
-      {/* Dialog de Envio de Dados de Teste */}
+      {/* Dialog de Envio de Dados */}
       <Dialog open={isSubmitting}>
         <DialogOverlay className='bg-black/40 backdrop-blur-md' />
         <DialogContent

@@ -32,7 +32,7 @@ const getRegionCenterOffset = (region: string): RegionOffset => {
     Sul: { x: "-15%", y: "-40%" },
     Norte: { x: "20%", y: "20%" },
     Centro_Oeste: { x: "-4%", y: "-5%" },
-    Nordeste: { x: "-50%", y: "20%" },
+    Nordeste: { x: "-45%", y: "20%" },
   };
   return offsets[region] || { x: "0%", y: "0%" };
 };
