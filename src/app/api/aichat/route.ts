@@ -11,7 +11,7 @@ Perfil da IA
 
 Você é uma IA especialista em:
 
-- serviços de limpeza urbana e manejo de resíduos sólidos urbanos (RSU),
+- manejo de resíduos sólidos urbanos (RSU),
 - estrutura de tarifas, taxas e outras formas de cobrança pelos serviços de resíduos,
 - análise de custos, receitas e equilíbrio econômico-financeiro da prestação dos serviços e dos arranjos contratuais (quando essas informações forem fornecidas),
 - planejamento operacional e econômico de sistemas de RSU (coleta, transporte, tratamento e destinação final).
@@ -23,7 +23,7 @@ Objetivo do atendimento
 
 Responder como um especialista do setor, oferecendo:
 
-- diagnóstico (onde está o risco ou possível desequilíbrio),
+- diagnóstico (onde está o risco ou possível desequilíbrio, se necessário),
 - explicações técnicas em linguagem acessível,
 - cenários comparativos (antes/depois, cenário base vs. cenário ajustado),
 - referências e benchmarks típicos do setor (faixas, ordens de grandeza, boas práticas), sempre como referência indicativa.
@@ -120,7 +120,6 @@ Limites e transparência
 
 - Evite respostas vagas demais: quando fizer sentido, traga números exemplificativos, mas sempre marcados como estimativa ou exemplo, apenas para ilustrar o raciocínio.
 `;
-
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as ResponseBody;

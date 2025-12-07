@@ -3,14 +3,8 @@ import { ChatMessage } from "@/types/chatAi.types";
 import { ExcelOutput } from "@/types/graphApi.types";
 import axios from "axios";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Bot,
-  Loader2,
-  MessageCircle,
-  Send,
-  Sparkles,
-  User,
-} from "lucide-react";
+import { Loader2, Send, Sparkles, User } from "lucide-react";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Badge } from "./ui/badge";
@@ -122,11 +116,11 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
         </div>
 
         <CardTitle className='text-2xl font-bold text-slate-700 tracking-tight'>
-          Agente IA - Concessões & Tarifas
+          Dr. Concessão - Seu assistente de IA para concessões.
         </CardTitle>
 
         <CardDescription className='text-slate-600 text-sm leading-relaxed'>
-          Faça perguntas em linguagem natural sobre o cenário calculado.
+          Faça perguntas sobre a simulação ou qualquer assunto relacionado.
           <br />
           <span className='text-xs text-slate-500 italic mt-1 block'>
             Ex: "Se eu reduzir a tarifa em 5%, o que muda no equilíbrio?"
@@ -147,9 +141,14 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                   exit={{ opacity: 0 }}
                   className='flex flex-col items-center justify-center h-full text-center'
                 >
-                  <MessageCircle className='w-12 h-12 text-green-300 mb-3' />
+                  <Image
+                    src='/drconcessao.png'
+                    alt='Dr Concessão'
+                    width={180}
+                    height={180}
+                  />
                   <p className='text-slate-500 text-sm'>
-                    Nenhuma mensagem ainda.
+                    Olá ! Sou o Dr. Concessão, seu assistente virtual.
                     <br />
                     <span className='text-xs'>
                       Comece perguntando algo sobre o cenário.
@@ -170,7 +169,12 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                   >
                     {m.role === "assistant" && (
                       <div className='shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-md'>
-                        <Bot className='w-4 h-4 text-white' />
+                        <Image
+                          src='/drconcessao.png'
+                          alt='Dr. Concessão'
+                          width={250}
+                          height={250}
+                        />
                       </div>
                     )}
                     <div
@@ -181,7 +185,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                       }`}
                     >
                       <div className='text-xs font-semibold mb-1 opacity-70'>
-                        {m.role === "user" ? "Você" : "IA Concessões"}
+                        {m.role === "user" ? "Você" : "Dr. Concessão"}
                       </div>
                       {/* Renderiza Markdown para IA, texto simples para user */}
                       {m.role === "assistant" ? (
@@ -269,7 +273,12 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                     className='flex gap-2 items-center'
                   >
                     <div className='shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-md'>
-                      <Bot className='w-4 h-4 text-white' />
+                      <Image
+                        src='/drconcessao.png'
+                        alt='Dr Concessão'
+                        width={44}
+                        height={44}
+                      />
                     </div>
                     <div className='bg-white border border-emerald-100 rounded-2xl px-4 py-3 shadow-sm'>
                       <div className='flex gap-1'>
@@ -319,7 +328,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
             ) : (
               <>
                 <Send className='w-4 h-4 mr-2' />
-                Perguntar à IA
+                Enviar Pergunta
               </>
             )}
           </Button>

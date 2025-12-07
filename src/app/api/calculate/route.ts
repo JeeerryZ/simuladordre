@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     habitantes: formInputs.habitantes,
     regiao: formInputs.regiao,
     modeloCobrancaConcessao: formInputs.modeloCobrancaConcessao,
-    taxaGeracaoResiduos: 1.047, // valor fixo conforme especificação
+    taxaGeracaoResiduos: 1.047, // valor fixo 
     taxaColetaResiduos: formInputs.taxaColetaResiduos / 100,
     anoInicio: formInputs.anoInicio,
     crescimentoPopulacionalAnual: formInputs.crescimentoPopulacionalAnual / 100,

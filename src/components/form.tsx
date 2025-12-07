@@ -355,7 +355,7 @@ export default function Formulario() {
                     <Slider
                       id='crescimento-populacional-anual'
                       className='w-full pt-2'
-                      min={0}
+                      min={-5}
                       max={5}
                       step={0.1}
                       value={[sliderValue]}
@@ -576,9 +576,9 @@ export default function Formulario() {
                             duration: 7000,
                           });
                         }}
-                        className='accent-green-600 w-4 h-4'
+                        className='accent-green-600 w-5 h-5'
                       />
-                      <span className='text-slate-700 text-sm'>
+                      <span className='text-slate-700 text-md'>
                         {SETORES_LABELS[setor]}
                       </span>
                     </label>

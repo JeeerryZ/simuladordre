@@ -8,6 +8,7 @@ import {
   Sparkles,
   TrendingUp,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ScrollReveal } from "./anim/ScrollReveal";
@@ -113,10 +114,12 @@ export default function Intro() {
 
                   {/* Container do logo */}
                   <div className='relative bg-white rounded-3xl shadow-2xl shadow-emerald-200/50 p-8 w-48 h-48 flex items-center justify-center'>
-                    <img
-                      src='solvi-logo.png'
+                    <Image
+                      src='/solvi-logo.png'
                       alt='Solvi Logo'
                       className='w-full h-full object-contain'
+                      width={192}
+                      height={192}
                     />
                   </div>
                 </motion.div>
@@ -231,10 +234,11 @@ export default function Intro() {
 
                   {/* Container do logo */}
                   <div className='relative bg-white rounded-3xl shadow-2xl shadow-slate-300/50 p-8 w-48 h-48 flex items-center justify-center'>
-                    {/* SUBSTITUA O SRC PELO PATH CORRETO DA SUA IMAGEM */}
-                    <img
-                      src='aion-logo.png'
+                    <Image
+                      src='/aion-logo.png'
                       alt='Aion Logo'
+                      width={150}
+                      height={150}
                       className='w-full h-full object-contain'
                     />
                   </div>

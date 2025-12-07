@@ -3,7 +3,8 @@
 
 import useAvatar from "@/hooks/useAvatar";
 import { AnimatePresence, motion } from "framer-motion";
-import { Info, X } from "lucide-react";
+import { X } from "lucide-react";
+import Image from "next/image";
 
 export default function FormAvatar() {
   const { currentTip, isVisible, hideTip, showTip } = useAvatar();
@@ -44,7 +45,7 @@ export default function FormAvatar() {
           stiffness: 120,
           damping: 18,
         }}
-        className='relative w-14 h-14 rounded-full bg-linear-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg hover:scale-110 transition-transform'
+        className='relative w-20 h-20 rounded-full bg-transparent flex items-center justify-center shadow-lg hover:scale-110 transition-transform'
         onClick={() => {
           if (!isVisible) {
             showTip({
@@ -57,7 +58,7 @@ export default function FormAvatar() {
           }
         }}
       >
-        <Info className='text-white' size={26} />
+        <Image src='/avatar.png' alt='Avatar' width={500} height={500} />
         {isVisible && (
           <motion.span
             initial={{ scale: 0 }}

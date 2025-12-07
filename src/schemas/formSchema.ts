@@ -44,7 +44,7 @@ export const formSchema = z
 
     crescimentoPopulacionalAnual: z
       .number("Informe o crescimento populacional anual")
-      .min(0, "Crescimento mínimo é 0%")
+      .min(-5, "Crescimento mínimo é -5%")
       .max(5, "Crescimento máximo é 5%"),
 
     modeloInicialCobranca: z.enum(MODELO_INICIAL_COBRANCA, {
