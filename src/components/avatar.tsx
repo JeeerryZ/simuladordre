@@ -58,7 +58,7 @@ export default function FormAvatar() {
           }
         }}
       >
-        <Image src='/avatar.png' alt='Avatar' width={500} height={500} />
+        <Image src='/drconcessao.png' alt='Avatar' width={500} height={500} />
         {isVisible && (
           <motion.span
             initial={{ scale: 0 }}
