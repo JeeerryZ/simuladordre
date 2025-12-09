@@ -19,7 +19,7 @@ export default function FormAvatar() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.9 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className='relative max-w-xs bg-white rounded-2xl shadow-2xl p-4 border-2 border-green-200'
+            className='absolute right-full mr-4 bottom-0 bg-white rounded-xl shadow-2xl p-4 w-80 border border-green-200'
           >
             <button
               onClick={hideTip}
@@ -45,7 +45,7 @@ export default function FormAvatar() {
           stiffness: 120,
           damping: 18,
         }}
-        className='relative w-20 h-20 rounded-full bg-transparent flex items-center justify-center shadow-lg hover:scale-110 transition-transform'
+        className='relative w-14 h-14 md:w-20 md:h-20 rounded-full bg-transparent flex items-center justify-center shadow-lg hover:scale-110 transition-transform'
         onClick={() => {
           if (!isVisible) {
             showTip({
