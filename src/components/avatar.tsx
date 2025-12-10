@@ -19,7 +19,7 @@ export default function FormAvatar() {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.9 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className='absolute right-full mr-4 bottom-0 bg-white rounded-xl shadow-2xl p-4 w-80 border border-green-200'
+            className='absolute right-full mr-4 bottom-0 bg-white rounded-xl shadow-2xl p-4 lg:w-80 w-[calc(100vw-8rem)] border border-green-200'
           >
             <button
               onClick={hideTip}

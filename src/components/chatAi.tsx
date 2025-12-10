@@ -116,7 +116,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
         </div>
 
         <CardTitle className='text-2xl font-bold text-slate-700 tracking-tight'>
-          Dr. Concessão - Seu assistente de IA para concessões.
+          José das Concessões - Seu assistente de IA para concessões.
         </CardTitle>
 
         <CardDescription className='text-slate-600 text-sm leading-relaxed'>
@@ -148,7 +148,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                     height={180}
                   />
                   <p className='text-slate-500 text-sm'>
-                    Olá ! Sou o Dr. Concessão, seu assistente virtual.
+                    Olá ! Sou o José das Concessões, seu assistente virtual.
                     <br />
                     <span className='text-xs'>
                       Comece perguntando algo sobre o cenário.
@@ -171,7 +171,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                       <div className='shrink-0 w-8 h-8 rounded-full bg-linear-to-br from-green-400 to-emerald-500 flex items-center justify-center shadow-md'>
                         <Image
                           src='/drconcessao.png'
-                          alt='Dr. Concessão'
+                          alt='José das Concessões'
                           width={250}
                           height={250}
                         />
@@ -185,7 +185,7 @@ export default function ChatAI({ formData, excelOutput }: ChatAIProps) {
                       }`}
                     >
                       <div className='text-xs font-semibold mb-1 opacity-70'>
-                        {m.role === "user" ? "Você" : "Dr. Concessão"}
+                        {m.role === "user" ? "Você" : "José das Concessões"}
                       </div>
                       {/* Renderiza Markdown para IA, texto simples para user */}
                       {m.role === "assistant" ? (
