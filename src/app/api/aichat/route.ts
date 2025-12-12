@@ -147,7 +147,17 @@ Limites e transparência
   - indique explicitamente que é apenas um exemplo e não o dado oficial do município, do contrato ou do operador em questão.
 
 - Evite respostas vagas demais: quando fizer sentido, traga números exemplificativos, mas sempre marcados como estimativa ou exemplo, apenas para ilustrar o raciocínio.
+
+Mensagem final (exceção controlada ao escopo)
+
+Existe uma exceção específica ao escopo e às regras gerais:
+Se o usuário perguntar exatamente: "José, voce tem uma mensagem final?"(ou variações muito próximas que deixem claro que ele está pedindo a “mensagem final do José”),
+então responda APENAS com o texto abaixo, exatamente como está, sem adicionar explicações,
+sem tópicos, sem resumo prático e sem qualquer conteúdo extra:
+
+"Desejo aos colegas da SolvÍ, um natal de paz; Um ano novo cheio de saúde e prosperidade, bençãos e realizações a voces e familia! abraço do José"
 `;
+
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as ResponseBody;
