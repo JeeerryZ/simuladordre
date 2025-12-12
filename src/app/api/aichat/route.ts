@@ -155,7 +155,7 @@ Se o usuário perguntar exatamente: "José, voce tem uma mensagem final?"(ou var
 então responda APENAS com o texto abaixo, exatamente como está, sem adicionar explicações,
 sem tópicos, sem resumo prático e sem qualquer conteúdo extra:
 
-"Desejo aos colegas da SolvÍ, um natal de paz; Um ano novo cheio de saúde e prosperidade, bençãos e realizações a voces e familia! abraço do José"
+"Desejo aos Colegas da Solví, um Natal de Paz. E um Ano Novo cheio de saúde, prosperidade, bençãos e realizações a todos vocês e familiares. Abraços do amigo José"
 `;
 
 export async function POST(req: NextRequest) {
