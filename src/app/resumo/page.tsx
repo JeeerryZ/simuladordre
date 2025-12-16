@@ -33,6 +33,10 @@ export default function ResumoPage() {
     router.push("/simulador");
   }
 
+  function handleShowEbook() {
+    window.open("/docs/ebook-liderar.pdf", "_blank");
+  }
+
   const handlePrint = useReactToPrint({
     contentRef: contentRef,
     documentTitle: "relatorio-resultados.pdf",
@@ -100,6 +104,14 @@ export default function ResumoPage() {
             >
               <SaveIcon className='w-4 h-4' />
               Salvar resultado em PDF
+            </Button>
+            <Button
+              size={"lg"}
+              className='cursor-pointer text-md'
+              onClick={handleShowEbook}
+            >
+              <BookText className='w-4 h-4' />
+              eBook
             </Button>
             <Button
               size={"lg"}
